@@ -1,0 +1,71 @@
+@startuml
+' State diagram for user management
+'left to right direction
+'top to bottom direction
+hide empty description
+scale 1.25
+'skinparam linetype ortho
+'skinparam linetype polyline
+title  User states and its transitions
+
+' State transitions
+[*] -> UNREGISTERED: on inviting
+
+UNREGISTERED -> REGISTERED: on registration
+UNREGISTERED --u--> UNREGISTERED_LOCKED: on N invalid secret key attempts
+UNREGISTERED -d-> INVITE_EXPIRED: on expiration of invite
+UNREGISTERED -d--> INVITE_CANCELLED: on cancelling of invite
+
+INVITE_EXPIRED -> UNREGISTERED: on re-generating secret key / \n on resending invite
+note left of INVITE_EXPIRED
+  Backend service expires
+  the invite after a
+  stipulated time.
+end note
+
+INVITE_CANCELLED -> UNREGISTERED: on re-generating secret key
+
+REGISTERED -u-> REGISTERED_LOCKED: on N invalid password attempts
+REGISTERED -d-> PASSWORD_EXPIRED: on expiration of password
+REGISTERED -d-> ACCOUNT_LOCKED: on N invalid attempts \n to recover password
+
+PASSWORD_EXPIRED -> REGISTERED: on updating password
+note right of PASSWORD_EXPIRED
+  Backend service expires
+  the password after a
+  stipulated time.
+end note
+
+state LOCKED {
+  state UNREGISTERED_LOCKED {
+  }
+  state REGISTERED_LOCKED {
+  }
+  state ACCOUNT_LOCKED {
+  }
+}
+UNREGISTERED_LOCKED -> UNREGISTERED: on re-generating secret key
+REGISTERED_LOCKED -> REGISTERED: on unlocking
+REGISTERED_LOCKED -> REGISTERED: on auto-unlocking
+ACCOUNT_LOCKED -> REGISTERED: on unlocking
+
+state ARCHIVED {
+  archived:true --> archived:false : on un-archiving
+  archived:false --> archived:true : on archiving
+}
+note right of ARCHIVED
+   archived flag is present with all the states.
+   This boolean value determines whether the user
+   has been archived or not
+ end note
+
+' State description
+UNREGISTERED: User has been added in the backend \n but has not yet REGISTERED/registered.
+REGISTERED: User has registered itself using secret key \n shared by administrator or received in the email.
+INVITE_EXPIRED: The secret key has expired. \n User will have to contact Administrator \n for the re-generating secret key.
+INVITE_CANCELLED: The invite has been cancelled. \n User will have to contact Administrator \n for the re-invitation.
+PASSWORD_EXPIRED: The password has expired. \n User will have to update its password.
+LOCKED: User has been locked and can no longer use the application.
+ARCHIVED: User has been archived and can no longer use the application.
+ARCHIVED: This is tracked via a boolean flag and NOT via state
+@enduml

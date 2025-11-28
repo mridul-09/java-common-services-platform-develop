@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+  <include file="common/01-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/02-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/03-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/04-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/05-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/06-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/07-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/08-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/09-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/10-seed-schema-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202204121650-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202204121700-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202207311814-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202208110155-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202209291500-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202303311315-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202309181336-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202310101911-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202310260121-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202312181806-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202328121707-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202401040028-seed-data.postgresql.sql" relativeToChangelogFile="true"/>
+  <include file="common/202402291836-seed-schema.postgresql.sql" relativeToChangelogFile="true"/>
+</databaseChangeLog>

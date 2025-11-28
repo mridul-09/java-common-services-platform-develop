@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>User Audit Report</title>
+
+  <style>
+    @page {
+      size: A4;
+      margin-top: 60px;
+      margin-bottom: 38px;
+      margin-left: 0;
+      margin-right: 0;
+
+      @top-center {
+        content: element(pageHeader);
+      }
+
+      @bottom-center {
+        content: element(pageFooter);
+      }
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 11pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      position: running(pageHeader);
+      background: #eeeeee;
+      height: auto;
+      padding: 10px 20px;
+    }
+
+    .header img {
+      height: 32px;
+    }
+
+    .footer {
+      position: running(pageFooter);
+      background: #eeeeee;
+      font-size: 9pt;
+      padding: 8px 20px;
+      height: auto;
+    }
+
+    .footer-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .footer-table td {
+      vertical-align: middle;
+    }
+
+    .page-counter::after {
+      content: counter(page) " / " counter(pages);
+      display: inline-block;
+      background: #bababa;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .content {
+      margin: 0.5cm;
+    }
+
+    .date-section{
+      font-weight: bold;
+      font-size:11pt;
+      margin:22px 0 6px;
+    }
+
+    ul.activities {
+      list-style: none;
+      margin: 0 0 14px 22px;       /* push whole list right of the bar */
+      padding: 0 0 0 0;         /* bottom space for horizontal rule */
+    }
+    ul.activities:after{            /* horizontal line once per day    */
+      content:"";
+      display:block;
+      border-bottom:1px solid #bababa;
+      margin-top:12px;
+    }
+
+
+    ul.activities li{
+      position:relative;
+      border-left:1px dashed #bababa;
+      padding:2px 0 2px 18px;
+      font-size:11pt;
+    }
+
+    ul.activities .circle{
+      display: inline-block;
+      position:absolute;
+      top:0.45em;
+      left:-5px;                    /* centres 8-px dot on 1-px bar    */
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#bababa;
+    }
+
+
+    ul.activities .time{
+      display: inline-block;
+      width: 65px;                 /* adjust if your times run longer */
+      margin-right: 6px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+  <table style="width:100%;">
+    <tr>
+      <td style="text-align:left;">
+        <img src="{{CLIENT_LOGO}}" alt="Client Logo">
+      </td>
+      <td style="text-align:right;">
+        <img src="{{LEUCINE_LOGO}}" alt="Leucine Logo">
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Footer (text left, page number right inside a box) -->
+<div class="footer">
+  <table class="footer-table">
+    <tr>
+      <td style="text-align:left;">
+        Downloaded on {{GENERATED_AT}} By {{USER}} ID: {{USER_ID}} for facility: {{FACILITY}} using Leucine App
+      </td>
+      <td style="text-align:right;">
+        <span class="page-counter"></span>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Content -->
+<div class="content">
+  {{CONTENT}}
+</div>
+
+</body>
+</html>

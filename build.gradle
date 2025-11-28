@@ -1,0 +1,57 @@
+plugins {
+  id 'java'
+  id 'application'
+  id 'maven-publish'
+  id 'idea'
+}
+
+group 'com.leucine.services'
+version '0.0.1-SNAPSHOT'
+
+allprojects {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven {
+      name = 'GitHubPackages'
+      url = uri('https://maven.pkg.github.com/leucinetech/java-common-libraries')
+      credentials {
+        username = project.findProperty('gpr.username') ?: System.getenv('USERNAME')
+        password = project.findProperty('gpr.token') ?: System.getenv('TOKEN')
+      }
+    }
+  }
+  apply(plugin: 'java')
+
+  sourceCompatibility = 17
+  targetCompatibility = 17
+
+  dependencies {
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+  }
+}
+
+subprojects {
+  apply plugin: 'maven-publish'
+  publishing {
+    repositories {
+      maven {
+        name = 'GitHubPackages'
+        url = uri('https://maven.pkg.github.com/leucinetech/java-common-services')
+        credentials {
+          username = project.findProperty('gpr.username') ?: System.getenv('USERNAME')
+          password = project.findProperty('gpr.token') ?: System.getenv('TOKEN')
+        }
+      }
+    }
+    publications {
+      gpr(MavenPublication) {
+        from(components.java)
+      }
+    }
+  }
+}
